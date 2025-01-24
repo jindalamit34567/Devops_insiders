@@ -1,0 +1,61 @@
+is-vhh41me02d
+
+RFIGYKNJIJLEWEFZ
+
+
+SERVER = is-voe45ma01d.oneadr.net
+SERVER = is-voe45me01d.oneadr.net
+SERVER = is-voe45me02d.oneadr.net
+
+
+MEDIA_SERVER = is-voe45me02d.oneadr.net
+
+
+
+./nbcertcmd -getCAcertificate -server is-voe45ma01d.oneadr.net
+
+
+./nbcertcmd -getcertificate -token RFIGYKNJIJLEWEFZ
+
+
+
+
+SOP Starts from here --
+------------------------------------
+
+
+
+
+   18  2024/01/11 13:10:15 :: cd /usr/openv/netbackup/
+   19  2024/01/11 13:10:16 :: ls
+   20  2024/01/11 13:10:49 :: cat bp.conf
+   21  2024/01/11 13:10:56 :: vim bp.conf                               {According to Location{Voe or VHH} we need to add Master and Media Server Info]
+   22  2024/01/11 13:16:38 :: vim bp.conf
+
+# comment all the entries started with SERVER & MEDIA_SERVER 
+
+SERVER = is-voe45ma01d.oneadr.net
+SERVER = is-voe45me02d.oneadr.net
+
+
+
+
+MEDIA_SERVER = is-voe45me02d.oneadr.net   {Always use me02d for Agent based Backup}
+ 
+
+
+   23  2024/01/11 13:19:15 :: ping is-voe45ma01d.oneadr.net        
+   24  2024/01/11 13:19:31 :: ping is-voe45me02d.oneadr.net           
+
+   27  2024/01/11 13:21:06 :: cd /usr/openv/netbackup/bin/
+   28  2024/01/11 13:21:09 :: ls
+   29  2024/01/11 13:25:56 :: ./nbcertcmd -getCAcertificate -server is-voe45ma01d.oneadr.net                          {Here Master server name changes according to site VHH or VOE}
+
+
+
+
+   30  2024/01/11 13:27:09 :: ./nbcertcmd -getcertificate -token TIGGROWHJKJQEBBZ   { Generic Token for VOE only)
+}
+
+
+After that Ankur (From backup team) Do something from his side. and confirm that Agent based backup is configured sucessfully

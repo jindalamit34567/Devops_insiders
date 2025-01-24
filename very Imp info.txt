@@ -1,0 +1,352 @@
+UDM-Server login
+ADM/ppa accounts-vCenter login
+PPA-Pasword Showing
+
+
+
+
+
+4TB --  3 nos.
+3TB -- 5 nos.
+2TB-- 33 Nos.
+1TB - 2 nOS.
+127.78 GB --1 Nos.
+
+
+
+Gaurav kumar GID-  G83046
+Satish Kumar GID- G84101
+Randhir Kumar GID--- G83950
+Aadhar- 1923
+DOB- 27Mar-1981
+doj- 7THjUNE-2021
+
+
+qaoneadr-adm    password- o=rcV7hIpM{%       o=rcV7hIpM{%
+
+Oneadr-adm      password- o=rcV7hIpM{%      ---  ap-vmwnfshh01d    o=rcV7hIpM{%
+
+DB-DBAA1T	On	10	2	esx-vhh01w220p	Cluster_VHH15W01P - STANDARD LINUX	VDC3 PROD VHH
+
+
+
+UDM-Server login
+ADM/ppa accounts-vCenter login
+PPA-Pasword Showing
+
+Production - oneadr.net - UDM  (sever name ending with P)  (db-bire1P server name) 
+
+Jumpe server detail - 
+is-jump4p - is-jump3p  - production
+
+is-jump3t - is-jump4t - Non prod.-----   o=rcV7hIpM{%
+
+Satelite server 
+
+is-sat6tool1p
+
+Helix url
+
+https://nordea-smartit.onbmc.com/smartit/app/#/change/IDGES1XPHLRRZARJTM2SRIU0TPTXXX
+
+
+=========================================================
+TSOM - Add Single Maintenance Period for a CI -- REQ-10135799 -- CRQ001000214771
+
+
+===========================================================================
+
+VDC Segregation -VLAN Data-29th-Apr-2022-completed
+
+
+
+
+=========================================================================================================
+make One File with name migration and put all server names and here used "Below tilt sign symbol in commands"
+
+for i in `cat migration`; do echo $i; scp ./VMTool/VMwareTools-10.3.23-17030940.tar $i:/tmp; done;
+
+
+
+for i in `cat migration`; do echo $i; ssh $i mkdir '/tmp/VMTool/'; ssh $i mv '/tmp/Vmware* /tmp/VMTool/';done;
+
+===========================================================================================================
+
+Hi Kishore, Please Close your Task- TAS000000401608-- CRQ001000209373 for DB. "NLINMO- VM Migration from VDC2.0 POD 01/02 to VDC3.0(db-nlpno1d, db-nlpno1s, db-nlpno1t)"
+
+
+Akshay Kumar yadav- Backup
+Sonu Singh- Backup
+Jyothi Pecheti- Backup
+
+
+Non-prod server Migration- weekdays- After Busness hours
+Prod Server Migration - Weekends 
+
+
+
+
+
+=============================================================
+REQ-10179597  -- For IP Change ticket assigned to Collegae for Changing the IP.
+04-06-2022 10:09
+04-06-2022 10:28
+DNS Services - Modify A-record
+
+
+TSOM - Add Single Maintenance Period for a CI  - for normal Migration
+====================================================
+
+for i in `cat migration`; do echo $i; ssh $i 'echo " --------------------- UNAME ---------------------" >> /tmp/PreCheck; uname -a > /tmp/PreCheck; echo "---------------------------------" >> /tmp/PreCheck; echo " --------------------- FILE SYSTEMS ---------------------" >> /tmp/PreCheck; df -hPT >> /tmp/PreCheck; echo "--------------------------------------------------------------" >> /tmp/PreCheck; echo " --------------------- DATE ---------------------" >> /tmp/PreCheck; date >> /tmp/PreCheck; echo "..............................." >> /tmp/PreCheck; echo " --------------------- NET STAT ---------------------" >> /tmp/PreCheck; netstat -nr >> /tmp/PreCheck; echo "--------------------------------------------" >> /tmp/PreCheck; echo " --------------------- NET STAT -TULP ---------------------" >> /tmp/PreCheck; netstat -tulp >> /tmp/PreCheck; echo " ..............................................." >> /tmp/PreCheck; echo " --------------------- MULTIPATH ---------------------" >> /tmp/PreCheck; multipath -ll >> /tmp/PreCheck; echo "........................................................">> /tmp/PreCheck; echo " --------------------- /ETC/FSTAB ---------------------" >> /tmp/PreCheck; cat /etc/fstab >> /tmp/PreCheck; echo "--------------------------------------------------------------" >> /tmp/PreCheck; echo " --------------------- BLKID ---------------------" >> /tmp/PreCheck; blkid >> /tmp/PreCheck; echo "--------------------------------------------------------------" >> /tmp/PreCheck; echo " --------------------- LSBLK ---------------------" >> /tmp/PreCheck; lsblk >> /tmp/PreCheck; echo "--------------------------------------------------------------" >> /tmp/PreCheck; echo " --------------------- IFCONFIG ---------------------" >> /tmp/PreCheck; ifconfig >> /tmp/PreCheck; echo "--------------------------------------------------------------" >> /tmp/PreCheck; echo " --------------------- /ETC/RESOLV.CONF ---------------------" >> /tmp/PreCheck; cat /etc/resolv.conf >> /tmp/PreCheck; echo "--------------------------------------------------------------" >> /tmp/PreCheck; echo " --------------------- /ETC/HOSTS ---------------------" >> /tmp/PreCheck; cat /etc/hosts >> /tmp/PreCheck; echo "--------------------------------------------------------------" >> /tmp/PreCheck; echo " --------------------- IP ROUTE ---------------------" >> /tmp/PreCheck; ip route >> /tmp/PreCheck; echo "-----------------------------------" >> /tmp/PreCheck; echo " --------------------- ROUTE -N ---------------------" >> /tmp/PreCheck; route -n >> /tmp/PreCheck; echo "...................................................." >> /tmp/PreCheck; echo " --------------------- UPTIME ---------------------" >> /tmp/PreCheck; uptime >>/tmp/PreCheck'; done;
+
+
+Guys, i am going for 20 mins break, please take care of Day to Day
+
+
+
+===========================================================================
+
+hastatus -sum   --  check the service status for cluster
+
+====================================================================
+
+
+
+Cancelling this CRQ. As the reported server is decommissioned under WO0000000381979
+So the activity can not be implemented on any Decomm Server.
+
+=============================================================================
+
+
+
+For Closing of tasks of Tools team 
+
+
+Systemsmanagement@nordea.com
+
+Tools - Monitoring and events
+
+
+==========================================================================================
+
+
+So these 2 things we have to check for--
+
+1.Server is Standalone or not by "ifconfig -a"
+2.  ps -ef|grep vcs
+
+
+
+This command is to check how many servers in that particular cluster--
+
+/opt/VRTSvcs/bin/hastatus -sum
+
+
+
+
+
+
+Sir, please approve my leave for 08th-Aug due to some personal reason
+
+
+
+Please Cancel your task as CRQ has not been Implemented due to Ongoing ITSSP issue
+
+
+
+==================================================
+
+
+
+We need CRQ window 5-6 days because replication time to complete 2-3 days as well 8 hours for implementation (Some time take 7-10 hours), Also take application validation time
+
+
+
+
+
+
+Helix
+
+https://nordea-smartit.onbmc.com/smartit/app/#/asset/OI-F40F156E7E8211E9A89D0A580A6836DE/BMC_COMPUTERSYSTEM
+
+
+=====================================================================
+
+So these 2 things we have to check for--
+
+1.Server is Standalone or not by "ifconfig -a"
+2.  ps -ef|grep vcs
+
+
+
+This command is to check how many servers in that particular VCS cluster--  high availbilty cluster
+
+/opt/VRTSvcs/bin/hastatus -sum or  hastatus -sum
+
+
+=======================================================================================================
+
+For checking Standalone or Cluster--
+
+for i in `cat mig`; do echo $i; ssh $i sudo /opt/VRTSvcs/bin/hastatus -sum ; done 
+
+
+
+
+--------------------------------------------------------------------------------------------------
+
+For Auto.direct & Nfs o/p's
+
+
+for i in `cat mig`; do echo $i; ssh $i df -hTP| grep -i nfs ; done
+
+
+for i in `cat mig`; do echo $i; ssh $i cat /etc/auto.direct ; done
+
+
+-------------------------------------------------------------------------------------------------
+For Ip & Mac address Check--
+
+for i in `cat mig`; do echo $i; ssh $i cat /etc/sysconfig/network-scripts/ifcfg-eth0 ; done
+
+------------------------------------------------------------------------------------------------------
+For Gateway Check--
+
+for i in `cat mig`; do echo $i; ssh $i cat /etc/sysconfig/network ; done 
+ 
+
+For Checking of Ip conflict --
+
+for i in `cat mig`; do echo $i; nslookup $i ; done 
+
+
+for i in `cat mig`; do echo $i; nslookup $i ; done >> /tmp/Collect/Pre_Post/PostNslookup
+
+
+for i in `cat mig`; do echo $i; nslookup $i ; done >> /tmp/Collect/Pre_Post/PreNslookup
+
+for i in `cat mig`; do echo $i; nslookup $i ; done >> /tmp/Collect/Pre_Post/IpconflictCheck
+-------------------------------------------------------
+
+
+For online Storage And Unix Support group--
+
+ cat /etc/auto.direct
+
+     and
+
+df -hTP|grep -i nfs 
+
+
+
+===========================================================
+For Database Servers---
+
+
+for i in `cat mig`; do echo $i; ssh $i ps -ef |grep -i pmon ; done 
+
+ps -ef |grep -i pmon -- for checking Database services running or not, if +ASM then it means OrACLE service running in that Servers....
+
+
+-----------------------------------------------------------------
+
+
+g83890-adm     gl'NO2W4'RNz  prod Servers--odeadr.net
+
+
+g83890-adm     W2LXaoVG/t:u  Non-prod Servers   
+
+In case Rollback of servers  we don't gave to restrat network(Nonprod to prod) 
+------------------------------------------------------------------
+
+For All Cluster servers- this o/p need to attach in CRQ--
+
+cat /etc/redhat-release;uname -a;cat /etc/resolv.conf;cat /etc/hosts;rpm -qa --last | grep kernel;rpm -qa | grep vx;df -hPT;df -h | wc -l;cat /etc/fstab;blkid;lsblk;vxdisk list;vxdisk listtag;vxprint;ip a;hastatus -summ;vxdg list;haclus -list;hasys -list
+
+----------------------------------------------------------------------------
+
+
+We need CRQ window 5-6 days because replication time to complete 2-3 days as well 8 hours for implementation (Some time take 7-10 hours), Also take application validation time
+
+
+
+Prod Servers-link-----
+
+https://dcd03vmware.oneadr.net
+
+======================================================
+For cluster Servers- Master node check--
+
+vxdctl -c mode
+
+For clear of any Cluster status--
+
+hagrp -clear itmAppSG -sys is-itmhh102t   (For e.g.)
+
+========================================================
+
+
+For any ITSSP tool issue--
+
+sahana.boggaram.narayanamurthy@consult.nordea.com   &  jesus.manuel.jarabo.amores@consult.nordea.com
+
+==========================================================================
+
+
+For Snapshot deletion refrence workorder number--
+
+WO0000000559095
+
+
+
+==============================================
+
+For Load balncer task for Refrence--
+
+TAS000000548717  ----CRQ001000275301   &  CRQ001000278444  (17th Jan2023)
+
+========================================
+
+if PTR Doesn't Exist & for already exist then raise in both cases--
+
+
+DNS Services - New A-record
+
+For Deleting Multiple ips--
+
+DNS Services - Delete A-record
+===============================================
+
+Format to Scp a file--
+
+ scp -r migration 10.97.114.207:/var/tmp/test
+ 
+ to ebable root login ssh---
+ 
+ cat /etc/ssh/sshd_config
+ 
+ ==============================
+
+Latest CRQ for refrence--take this CRQ CRQ001000283329 as reference-- 23rd Jan 2023 --without Storage task
+
+
+For Storage Task refrence CRq-- CRQ001000277730
+(Alias Should be mentioned in Main task & Load balancer Tasks only)
+=================================================
+
+10.158.104.217
+
+
+=================================================================
+
+For any Database servers Alais change --- please connect with Singh, Vinay & Ekabattula, Rangachari 
+
+/opt/nordea/dataguard/dataguard_netconf -p 
+/opt/nordea/dataguard/dataguard_netconf -l
+
+
+========================================
+
+
+
+

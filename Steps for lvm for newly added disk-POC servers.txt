@@ -1,0 +1,223 @@
+[root@ap-vcftestpoc5d ~]# pvcreate /dev/sdc /dev/sdd
+  Physical volume "/dev/sdc" successfully created.
+
+[root@ap-vcftestpoc5d ~]# pvs
+  PV         VG     Fmt  Attr PSize    PFree
+  /dev/sda2  rootvg lvm2 a--  <249.00g <92.00g
+  /dev/sdb   appvg  lvm2 a--     1.95t      0
+  /dev/sdc          lvm2 ---     2.00t   2.00t
+
+
+[root@ap-vcftestpoc5d ~]# vgcreate appvg1 /dev/sdc;vgcreate catvg /dev/sdd  
+  Volume group "appvg1" successfully created
+[root@ap-vcftestpoc5d ~]# vgs
+  VG     #PV #LV #SN Attr   VSize    VFree
+  appvg    1   2   0 wz--n-    1.95t      0
+  rootvg   1  16   0 wz--n- <249.00g <92.00g
+  testvg   1   0   0 wz--n-   <2.00t  <2.00t
+
+
+[root@ap-vcftestpoc5d ~]# lvcreate -L +T -n testlv testvg     ---Mind it
+  Volume group "testvg" has insufficient free space (524287 extents): 524288 required.
+
+
+[root@ap-vcftestpoc5d ~]# lvcreate -L +3.95T -n appvol appvg1; lvcreate -L +44.95G -n catvol catvg   {in case of Media servers -- lvcreate -L +199.95G -n appvol appvg1 }
+  Rounding up size to full physical extent 1.90 TiB
+  Logical volume "testlv" created.
+
+[root@ap-vcftestpoc5d ~]# lvs
+  LV                 VG     Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  applogvol          appvg  -wi-ao----  1.00g
+  appvol             appvg  -wi-ao----  1.95t
+  homevol            rootvg -wi-ao---- 10.00g
+  itmvol             rootvg -wi-ao----  5.00g
+  me01vol            rootvg -wi-ao---- 10.00g
+  nordeanetbackupvol rootvg -wi-ao----  5.00g
+  nordeasplunkvol    rootvg -wi-ao----  5.00g
+  nordeavol          rootvg -wi-ao---- 10.00g
+  optvol             rootvg -wi-ao---- 15.00g
+  rootvol            rootvg -wi-ao---- 18.00g
+  swapvol            rootvg -wi-ao----  4.00g
+  tmpvol             rootvg -wi-ao---- 10.00g
+  uc4vol             rootvg -wi-ao----  5.00g
+  varauditvol        rootvg -wi-ao---- 10.00g
+  varcachevol        rootvg -wi-ao---- 15.00g
+  varlogvol          rootvg -wi-ao---- 10.00g
+  vartmpvol          rootvg -wi-ao---- 10.00g
+  varvol             rootvg -wi-ao---- 15.00g
+  testlv             testvg -wi-a-----  1.90t
+
+
+
+
+
+[root@ap-vcftestpoc5d ~]# mkfs.xfs /dev/appvg1/appvol; mkfs.xfs /dev/catvg/catvol
+meta-data=/dev/testvg/testlv     isize=512    agcount=4, agsize=127506944 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1    bigtime=0 inobtcount=0
+data     =                       bsize=4096   blocks=510027776, imaxpct=5
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=249037, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+
+
+----------------------------------------------------------------------------
+
+[root@ap-vcftestpoc5d ~]# mkdir /usr/openv;  mkdir /catalog/DR
+[root@ap-vcftestpoc5d ~]# cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Tue Sep  5 12:14:39 2023
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk/'.
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.
+#
+# After editing this file, run 'systemctl daemon-reload' to update systemd
+# units generated from this file.
+#
+/dev/mapper/rootvg-rootvol /                       xfs     defaults        0 0
+UUID=8d9a09b8-32bd-4497-b34a-a259356c30f8 /boot                   xfs     defaults        0 0
+/dev/mapper/rootvg-homevol /home                   xfs    defaults,uquota 0 0
+/dev/mapper/rootvg-me01vol /me01                   xfs     defaults        0 0
+/dev/mapper/rootvg-optvol /opt                    xfs     defaults        0 0
+/dev/mapper/rootvg-itmvol /opt/IBM/ITM            xfs     defaults        0 0
+/dev/mapper/rootvg-nordeavol /opt/nordea             xfs     defaults        0 0
+/dev/mapper/rootvg-nordeasplunkvol /opt/nordea/splunk      xfs     defaults        0 0
+/dev/mapper/rootvg-uc4vol /opt/uc4                xfs     defaults        0 0
+/dev/mapper/rootvg-tmpvol /tmp                    xfs     defaults,nodev,nosuid 0 0
+/dev/mapper/rootvg-nordeanetbackupvol /usr/openv              xfs     defaults        0 0
+/dev/mapper/rootvg-varvol /var                    xfs     defaults        0 0
+/dev/mapper/rootvg-varcachevol /var/cache              xfs     defaults        0 0
+/dev/mapper/rootvg-varlogvol /var/log                xfs     defaults        0 0
+/dev/mapper/rootvg-varauditvol /var/log/audit          xfs     defaults        0 0
+/dev/mapper/rootvg-vartmpvol /var/tmp                xfs     defaults,nodev,nosuid 0 0
+/dev/mapper/rootvg-swapvol swap                    swap    defaults        0 0
+/dev/mapper/appvg-appvol /app xfs defaults,noatime 0 0
+/dev/mapper/appvg-applogvol /applog xfs defaults,noatime 0 0
+
+
+[root@ap-vcftestpoc5d ~]# vim /etc/fstab
+
+/dev/appvg1/appvol         /usr/openv                         xfs     defaults        0 0
+/dev/catvg/catvol          /catalog/DR	                      xfs     defaults        0 0 
+
+[root@ap-vcftestpoc5d ~]# systemctl daemon-reload
+[root@ap-vcftestpoc5d ~]# mount -a
+[root@ap-vcftestpoc5d ~]# vgs
+  VG     #PV #LV #SN Attr   VSize    VFree
+  appvg    1   2   0 wz--n-    1.95t      0
+  rootvg   1  16   0 wz--n- <249.00g <92.00g
+  testvg   1   1   0 wz--n-   <2.00t 102.39g
+[root@ap-vcftestpoc5d ~]# lsblk
+NAME                          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                             8:0    0  250G  0 disk
+├─sda1                          8:1    0    1G  0 part /boot
+└─sda2                          8:2    0  249G  0 part
+  ├─rootvg-rootvol            253:0    0   18G  0 lvm  /
+  ├─rootvg-swapvol            253:1    0    4G  0 lvm  [SWAP]
+  ├─rootvg-nordeanetbackupvol 253:4    0    5G  0 lvm  /usr/openv
+  ├─rootvg-nordeasplunkvol    253:5    0    5G  0 lvm  /opt/nordea/splunk
+  ├─rootvg-nordeavol          253:6    0   10G  0 lvm  /opt/nordea
+  ├─rootvg-itmvol             253:7    0    5G  0 lvm  /opt/IBM/ITM
+  ├─rootvg-uc4vol             253:8    0    5G  0 lvm  /opt/uc4
+  ├─rootvg-optvol             253:9    0   15G  0 lvm  /opt
+  ├─rootvg-homevol            253:10   0   10G  0 lvm  /home
+  ├─rootvg-me01vol            253:11   0   10G  0 lvm  /me01
+  ├─rootvg-varcachevol        253:12   0   15G  0 lvm  /var/cache
+  ├─rootvg-varauditvol        253:13   0   10G  0 lvm  /var/log/audit
+  ├─rootvg-varlogvol          253:14   0   10G  0 lvm  /var/log
+  ├─rootvg-vartmpvol          253:15   0   10G  0 lvm  /var/tmp
+  ├─rootvg-varvol             253:16   0   15G  0 lvm  /var
+  └─rootvg-tmpvol             253:17   0   10G  0 lvm  /tmp
+sdb                             8:16   0    2T  0 disk
+├─appvg-applogvol             253:2    0    1G  0 lvm  /applog
+└─appvg-appvol                253:3    0    2T  0 lvm  /app
+sdc                             8:32   0    2T  0 disk
+└─testvg-testlv               253:18   0  1.9T  0 lvm  /appnew
+sr0                            11:0    1 1024M  0 rom
+sr1                            11:1    1 1024M  0 rom
+[root@ap-vcftestpoc5d ~]# lvs
+  LV                 VG     Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  applogvol          appvg  -wi-ao----  1.00g
+  appvol             appvg  -wi-ao----  1.95t
+  homevol            rootvg -wi-ao---- 10.00g
+  itmvol             rootvg -wi-ao----  5.00g
+  me01vol            rootvg -wi-ao---- 10.00g
+  nordeanetbackupvol rootvg -wi-ao----  5.00g
+  nordeasplunkvol    rootvg -wi-ao----  5.00g
+  nordeavol          rootvg -wi-ao---- 10.00g
+  optvol             rootvg -wi-ao---- 15.00g
+  rootvol            rootvg -wi-ao---- 18.00g
+  swapvol            rootvg -wi-ao----  4.00g
+  tmpvol             rootvg -wi-ao---- 10.00g
+  uc4vol             rootvg -wi-ao----  5.00g
+  varauditvol        rootvg -wi-ao---- 10.00g
+  varcachevol        rootvg -wi-ao---- 15.00g
+  varlogvol          rootvg -wi-ao---- 10.00g
+  vartmpvol          rootvg -wi-ao---- 10.00g
+  varvol             rootvg -wi-ao---- 15.00g
+  testlv             testvg -wi-ao----  1.90t
+
+
+---------------------------------------------------------------------------
+
+
+
+
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDnW21B9u63w7BskmT03s5R7JzLgWfEZb75xDbSX+xMJ6hzz/Kye7Kp1nGi7SKgHKWVlOCokYTLeV4cYWIMD5lm9t++4TDVTPqEtu1qPUhUqan87exC2rloApNNWI9yGH9l4dfkwPUP4m2FghUSQRZlT+6KVLWkCgwcQc7d5xE+RbE8ZCB48iaNIDuZ+egH2FygSZVl5fLHVzmbqOmONNmbSlxKo1Pk1ybDQDl1hHp+xIiAt4obIkzKl5b61/UktdG0/VBPPerHRZ5NW1u2ZciOak+n5TYHAdrULteI3KEP8wQJ5ESuOdDzKOWpJpSOMhYcFtTzj8ESnuj7JnhXoP3GH+9469XxnFEszMZow5SsFBFeCpvf7tQKWTMzHuKvgXRcLjFuB0EBFHHWP0kI1WrzJao6mSerxoFq12s/394CCXksJQfiH3ge7xmzkUeQKnWlzRK/77v3gIXLfBjyRVoOvkWoSobG3hNciQvtrz3Qzyp2mYc9t/0kQAMmmMolvjk= g83890-udm@ap-vcftestpoc6d.oneadr.net
+
+
+
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDU8cKdGhaUwKaqPZCA6OjZoJHiJXRtzwtUqjl91mln/I/q44yPYZdF6/hagR9YFvYJq3oc0Pf8BSTjO+5AnlpwSpGVk5CQgV1m85egSOY/pAoHO+k2kMdUg8JcYinPvsXvqqkiM+oKFvdrTHo2BO8yNZVVFNprFgRfLrvGMyHRzPYMJcPXok9QFaP2bcC6b22sJ0OET7i3XpvREOcHNxmzx4frFqWNvjx3rlwxbi5F1p3PnjDKp3frxtKO2FFWeloOkSfe6RmIG274PIfuUqBr+2imGU0FVMacPi6wkqabOj/JHxM2a66ROdKaB1lkEc0cmZJ+p1tNsEFCutxz4aROVOI3nUc192g7sCmB+KSzQ64PqHaAVdK/zP1+fxqhXcaXpwivsd3hpphg/iq7jrZ+jWuQuyUQ/3ZfE1e/VYmF0qDee9B/A2Ljh1t9wdlf09padJ+dv+JceqZvfZ8s4xbd0wmDT/PjzToGD/bhDCIfIGIucMlJ0cgRh4zJID82O0M= g83890-udm@ap-vcftestpoc5d.oneadr.net
+
+
+=====================================================================================
+
+g83890-adm
+Esk6tuUhQu6d  -- qaonadr
+
+Source	Target	 	Network	GW
+VMWARE-VDC-PREPROD-STANDARD-20250	VMWARE-VDC-PREPROD-STANDARD-POC-20250	 	10.97.173.192/26	10.97.173.193
+
+
+VMWARE-VDC-PREPROD-STANDARD-20251	VMWARE-VDC-PREPROD-STANDARD-POC-20251	 	10.97.175.0/26	10.97.175.1
+
+
+10.97.175.44   --ping check  --51 vLAN  --upto 12 servers
+10.97.175.45   --6d - VLAN changed to 20251 -- 
+10.97.175.46   --7d --VLAN changed to 20251
+10.97.175.47   ---8d --VLAN changed to 20251
+10.97.175.48   --9d --vLAN changed to 20251
+10.97.175.49   --10d --vLAN changed to 20251
+10.97.175.50    --11d ---vLAN changed to 20251       
+10.97.175.51     --12d --vLAN changed to 20251
+10.97.175.52     ---13d --vLAN changed to 20251
+10.97.175.53     ---14d --vLAN changed to 20251
+10.97.175.54      --15d  --vLAN changed to 20251
+10.97.175.55       -- 16d ----vLAN changed to 20251
+10.97.175.56       -- 17d  --vLAN changed to 20251
+10.97.173.207     ---18d --vLAN changed to 20250
+10.97.173.208     --- 19d -- vLAN changed to 20250
+
+
+cat /etc/sysconfig/network-scripts/ifcfg-ens192
+
+
+delete and create a recotrd & 
+
+VCF- upgrade Project- for POC purpose
+
+
+
+DNS Services - Delete PTR-record  --done-19d
+DNS Services - Delete A-record  -done-19d
+DNS Services - New PTR-record  --done-19d
+DNS Services - New A-record  ---done-19d
+
+  -wait appval form sumit

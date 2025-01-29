@@ -1,0 +1,239 @@
+Format FOr any Command Edit for Shell Scripts--
+
+
+
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i mkdir -p /tmp/Collect/Pre_Post; done;
+for i in `cat mig`; do echo $i; rsync -avh ./P*.sh $i:/tmp/; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo /tmp/PreCheck.sh; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo chmod 777 /tmp/PreCheck ; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo mv /tmp/PreCheck /tmp/PreCheck_$i; done;
+for i in `cat mig`; do echo $i; scp $i:/tmp/PreCheck_* /tmp/Collect/Pre_Post/ ; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo passwd root; done
+
+
+
+
+
+
+(20)......................... " >> /tmp/PreCheck; echo " --------------------- /ETC/SYSCONFIG/NETWORK ---------------------" >> /tmp/PreCheck; cat /etc/sysconfig/network >> /tmp/PreCheck; echo " .........................(21)......................"
+
+
+
+Final Format for change--
+
+
+
+
+
+echo " --------------------- MOTD ---------------------">> /tmp/PreCheck; cat /etc/motd >> /tmp/PreCheck; echo " .........................(24)......................... " >> /tmp/PreCheck; echo " --------------------- All PERMISSIONS ---------------------">> /tmp/PreCheck; ls -ltarh >> /tmp/PreCheck; echo " .........................(25).
+
+
+
+
+echo " --------------------- MOTD ---------------------">> /tmp/PreCheck; cat /etc/motd >> /tmp/PreCheck; echo " .........................(24)......................... " >> /tmp/PreCheck; echo " --------------------- All PERMISSIONS ---------------------">> /tmp/PreCheck; ls -ltarh >> /tmp/PreCheck; echo " .........................(25).
+
+
+
+
+echo " --------------------- MOTD ---------------------">> /tmp/PreCheck; cat /etc/motd >> /tmp/PreCheck; echo " .........................(24)......................... " >> /tmp/PreCheck; echo " --------------------- All PERMISSIONS ---------------------">> /tmp/PreCheck; ls -ltarh >> /tmp/PreCheck; echo " .........................(25).
+
+
+
+
+echo " --------------------- /ETC/SYSCONFIG/NETWORK ---------------------" >> /tmp/PreCheck; cat /etc/sysconfig/network >> /tmp/PreCheck; echo " ..............................................." >> /tmp/PreCheck; echo " --------------------- /ETC/SYSCONFIG/NETWORK-SCRIPT/IFCFG-ENS192 ---------------------" >> /tmp/PreCheck;  cat /etc/sysconfig/network-scripts/ifcfg-ens192 >> /tmp/PreCheck; echo " ..............................................." >> /tmp/PreCheck;
+
+
+
+
+
+echo " --------------------- Static Routing table ---------------------">> /tmp/PreCheck; ip route show >> /tmp/PreCheck; echo " .........................(25)......................... " >> /tmp/PreCheck; echo " --------------------- All PERMISSIONS ---------------------">> /tmp/PreCheck; ls -ltarh >> /tmp/PreCheck; echo " .........................(25).
+;echo " --------------------- Static Routing table2ND ---------------------">> /tmp/PreCheck; ip rule show >> /tmp/PreCheck; echo " .........................(26)......................... " >> /tmp/PreCheck; echo " --------------------- All
+
+
+echo " --------------------- Static Route-1ST ---------------------" >> /tmp/PreCheck;
+ip route show >> /tmp/PreCheck;
+echo " --------------------- Static Route-2ND ---------------------" >> /tmp/PreCheck;
+ip rule show >> /tmp/PreCheck;
+
+
+
+echo " --------------------- Static Route-1ST ---------------------" >> /tmp/PostCheck;
+ip route show >> /tmp/PostCheck;
+echo " --------------------- Static Route-2ND ---------------------" >> /tmp/PostCheck;
+ip rule show >> /tmp/PostCheck;
+
+
+
+ip route show
+ip rule show
+
+
+
+[g83890-udm@is-jump3t ~]$ cat Sanity_Pre.sh
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i mkdir -p /tmp/Collect/Pre_Post; done;
+for i in `cat mig`; do echo $i; rsync -avh ./P*.sh $i:/tmp/; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo /tmp/PreCheck.sh; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo chmod 777 /tmp/PreCheck ; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo mv /tmp/PreCheck /tmp/PreCheck_$i; done;
+for i in `cat mig`; do echo $i; mkdir -p /tmp/Collect/Pre_Post/; done;
+for i in `cat mig`; do echo $i; scp $i:/tmp/PreCheck_* /tmp/Collect/Pre_Post/ ; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo passwd root; done
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+o/p of Pre_Sanity at 4t--
+
+
+[g83890-udm@is-jump4t Pre_Post]$ cd
+[g83890-udm@is-jump4t ~]$ ./Sanity_Pre.sh
+ap-batch1d
+ap-batch1d
+sending incremental file list
+
+sent 94 bytes  received 12 bytes  70.67 bytes/sec
+total size is 29.92K  speedup is 282.24
+ap-batch1d
+/tmp/PreCheck.sh: line 16: multipath: command not found
+/tmp/PreCheck.sh: line 16: multipath: command not found
+/tmp/PreCheck.sh: line 16: multipath: command not found
+/tmp/PreCheck.sh: line 16: hastatus: command not found
+ ...........{24}..............
+ .........................END OF PRECHECKS Final ROUND.....................
+ap-batch1d
+ap-batch1d
+ap-batch1d
+PreCheck_ap-batch1d                                                                                                                                                                                        100%  366KB  96.1MB/s   00:00
+ap-batch1d
+New password:
+BAD PASSWORD: No password supplied
+Retype new password:
+No password supplied
+Changing password for user root.
+passwd: Authentication token manipulation error
+
+
+
+======================================================================================================================
+
+
+
+Pre_Sanity O/p at 3t--
+
+
+[g83890-udm@is-jump3t ~]$ ./Sanity_Pre_UPD.sh
+ap-batch1d
+Warning: Permanently added 'ap-batch1d,10.97.94.42' (ECDSA) to the list of known hosts.
+ap-batch1d
+The authenticity of host 'ap-batch1d (10.97.94.42)' can't be established.
+ECDSA key fingerprint is SHA256:nx8Wy12JHm4yzHsWpbSnqYV+g5RtPfF9ZM8KidHog9Y.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ap-batch1d,10.97.94.42' (ECDSA) to the list of known hosts.
+sending incremental file list
+PreCheck.sh
+
+sent 1.07K bytes  received 197 bytes  508.40 bytes/sec
+total size is 30.61K  speedup is 24.08
+ap-batch1d
+Warning: Permanently added 'ap-batch1d,10.97.94.42' (ECDSA) to the list of known hosts.
+/tmp/PreCheck.sh: line 16: multipath: command not found
+/tmp/PreCheck.sh: line 16: multipath: command not found
+/tmp/PreCheck.sh: line 16: multipath: command not found
+ap-batch1d
+Warning: Permanently added 'ap-batch1d,10.97.94.42' (ECDSA) to the list of known hosts.
+ap-batch1d
+Warning: Permanently added 'ap-batch1d,10.97.94.42' (ECDSA) to the list of known hosts.
+ap-batch1d
+The authenticity of host 'ap-batch1d (10.97.94.42)' can't be established.
+ECDSA key fingerprint is SHA256:nx8Wy12JHm4yzHsWpbSnqYV+g5RtPfF9ZM8KidHog9Y.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ap-batch1d,10.97.94.42' (ECDSA) to the list of known hosts.
+/tmp/Collect-UPD/Pre_Post/: Not a directory
+ap-batch1d
+Warning: Permanently added 'ap-batch1d,10.97.94.42' (ECDSA) to the list of known hosts.
+New password:
+BAD PASSWORD: No password supplied
+Retype new password:
+No password supplied
+Changing password for user root.
+passwd: Authentication token manipulation error
+=======================================================================================================================
+
+
+
+[g83890-udm@is-jump3t ~]$ cat Sanity_Pre.sh
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i mkdir -p /tmp/Collect/Pre_Post; done;
+for i in `cat mig`; do echo $i; scp $i:/tmp/PreCheck_* /tmp/Collect-UPD/Pre_Post/ ; done;
+
+for i in `cat mig`; do echo $i; ssh $i mkdir -p /tmp/Collect/Pre_Post-tmp; done;
+for i in `cat mig`; do echo $i; rsync -avh ./P*.sh $i:/tmp/; done;
+for i in `cat mig`; do echo $i; ssh $i sudo /tmp/PreCheck.sh; done;
+for i in `cat mig`; do echo $i; ssh $i sudo chmod 777 /tmp/PreCheck ; done;
+for i in `cat mig`; do echo $i; ssh $i sudo mv /tmp/PreCheck /tmp/PreCheck_$i; done;
+for i in `cat mig`; do echo $i; scp $i:/tmp/PreCheck_* /tmp/Collect/Pre_Post/ ; done;
+for i in `cat mig`; do echo $i; ssh $i sudo passwd root; done
+
+
+
+
+
+
+
+
+----------------------------
+Earlier File
+
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i mkdir -p /tmp/Collect/Pre_Post; done;
+for i in `cat mig`; do echo $i; ssh $i mkdir -p /tmp/Collect/Pre_Post-tmp; done;
+for i in `cat mig`; do echo $i; rsync -avh ./P*.sh $i:/tmp/; done;
+for i in `cat mig`; do echo $i; ssh $i sudo /tmp/PreCheck.sh; done;
+for i in `cat mig`; do echo $i; ssh $i sudo chmod 777 /tmp/PreCheck ; done;
+for i in `cat mig`; do echo $i; ssh $i sudo mv /tmp/PreCheck /tmp/PreCheck_$i; done;
+for i in `cat mig`; do echo $i; mkdir -p /tmp/Collect/Pre_Post/; done;
+for i in `cat mig`; do echo $i; scp $i:/tmp/PreCheck_* /tmp/Collect/Pre_Post/ ; done;
+for i in `cat mig`; do echo $i; ssh $i sudo passwd root; done
+
+
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i mkdir -p /tmp/Collect/Pre_Post; done;
+
+
+
+
+
+Finaly Modified Script==================
+
+
+
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i mkdir -p /tmp/Collect/Pre_Post; done;
+for i in `cat mig`; do echo $i; ssh $i mkdir -p /tmp/Collect/Pre_Post-tmp; done;
+for i in `cat mig`; do echo $i; rsync -avh ./P*.sh $i:/tmp/; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo /tmp/PreCheck.sh; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo chmod 777 /tmp/PreCheck ; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo mv /tmp/PreCheck /tmp/PreCheck_$i; done;
+for i in `cat mig`; do echo $i; mkdir -p /tmp/Collect/Pre_Post/; done;
+for i in `cat mig`; do echo $i; scp $i:/tmp/PreCheck_* /tmp/Collect/Pre_Post/ ; done;
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i sudo passwd root; done
+
+
+
+
+for i in `cat mig`; do echo $i; ssh -o StrictHostKeyChecking=no $i mkdir -p tmp/PreCheck ; done;
+
+
+
+
+
+for i in `cat mig`; do echo $i; ssh $i sudo chmod 777 /tmp/PreCheck.sh ; done;
+
+Have to revert-
+
+mv PreCheck.sh PreCheck-1.sh
+
+
+ll /tmp/PreCheck
+
+
+
+
+
